@@ -1,0 +1,187 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #40e0d0 0%, #c06ec0 100%); /* Fondo degradado turquesa y lila */
+    color: #2c3e3b;
+    text-align: center;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+}
+
+/* Fondo interactivo con el cursor */
+body::before {
+    content: '';
+    position: fixed; /* Fondo fijo para que cubra toda la página */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 10.01%);
+    background-size: 20px 20px;
+    opacity: 0.5;
+    z-index: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+body:hover::before {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* Efecto de luz LED que sigue el cursor */
+body::after {
+    content: '';
+    position: fixed; /* Fondo fijo para que cubra toda la página */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.3), transparent 30%);
+    pointer-events: none; /* Evita que el pseudo-elemento interfiera con el cursor */
+    z-index: 0;
+    transition: background 0.3s ease;
+}
+
+/* Botón de volver */
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 1); /* Fondo más sólido al hacer hover */
+    transform: translateY(-3px); /* Eleva ligeramente el botón */
+}
+
+/* Contenedor de productos */
+.product-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-height: 150px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilos para cada producto */
+.fullscreen-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    background: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.fullscreen-product:hover {
+    transform: translateY(-10px); /* Eleva ligeramente el producto */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Efecto de borde LED */
+.fullscreen-product::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    z-index: -1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fullscreen-product:hover::before {
+    border-color: #40e0d0; /* Color del borde LED */
+    box-shadow: 0 0 10px #40e0d0, 0 0 20px #40e0d0, 0 0 30px #40e0d0; /* Efecto de neón */
+}
+
+/* Alternar la disposición de los productos */
+.fullscreen-product:nth-child(even) {
+    grid-template-columns: 1fr 1fr;
+    direction: rtl; /* Invierte el orden para los productos pares */
+}
+
+.fullscreen-product:nth-child(even) .product-info {
+    direction: ltr; /* Restablece la dirección del texto */
+}
+
+/* Imagen del producto */
+.fullscreen-product img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra para resaltar la imagen */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fullscreen-product img:hover {
+    transform: scale(1.05); /* Escala ligeramente la imagen */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+/* Información del producto */
+.product-info {
+    text-align: left;
+}
+
+.product-info h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.fullscreen-product:hover h2 {
+    color: #c06ec0; /* Cambia el color al hacer hover */
+}
+
+.product-info .price {
+    font-size: 1.5rem;
+    color: #e74c3c; /* Color llamativo para el precio */
+    font-weight: bold;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.fullscreen-product:hover .price {
+    transform: scale(1.1); /* Escala ligeramente el precio */
+}
+
+.product-info .description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.fullscreen-product:hover .description {
+    color: #333; /* Oscurece la descripción al hacer hover */
+}
+
+/* Mejoras de navegación para pantallas grandes */
+@media (min-width: 768px) {
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+}
